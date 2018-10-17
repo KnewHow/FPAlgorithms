@@ -1,6 +1,7 @@
 package fp.algorithms.basic
 
 import fp.algorithms.common.Logger.Logger
+import prop.gen._
 
 /**
  * Sorting object, we will implement INSERTION-SORTED and MERGE-SORT IN it.
@@ -22,4 +23,19 @@ object Sorted {
     }
     w.toSeq
   }
+}
+
+/**
+ * Sorting Law, the first element of the sorted result list is minimal element is original,
+ * So any element
+ *
+ */
+object SortedLaw {
+  def law(input: Gen[List[Int]])(sortF: Seq[Int] => Seq[Int]): Prop =
+    Prop.forAll(input) { a =>
+      val r    = sortF(a)
+      val head = r.headOption
+      head.map(h => !r.exists(_ < h)).getOrElse(true) && r.size == a.size
+    }
+
 }
