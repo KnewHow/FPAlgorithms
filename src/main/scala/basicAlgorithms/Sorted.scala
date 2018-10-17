@@ -34,7 +34,7 @@ object Sorted {
       val (l, r) = a.splitAt(a.size / 2)
       val rL     = mergeSorted(l)
       val rR     = mergeSorted(r)
-      merge(rL, rL)
+      merge(rL, rR)
     }
   }
 
@@ -43,28 +43,28 @@ object Sorted {
    */
   private def merge(l: Seq[Int], r: Seq[Int]): Seq[Int] = {
     import scala.collection.mutable.ArrayBuffer
-    var i = 0
-    var j = 0
-    val r = ArrayBuffer[Int]()
+    var i  = 0
+    var j  = 0
+    val rs = ArrayBuffer[Int]()
     while (i < l.size && j < r.size) {
       if (l(i) < r(j)) {
-        r += l(i)
+        rs += l(i)
         i += 1
       } else {
-        r += r(j)
+        rs += r(j)
         j += 1
       }
     }
 
     while (i < l.size) {
-      r += l(i)
+      rs += l(i)
       i += 1
     }
     while (j < r.size) {
-      r += r(j)
+      rs += r(j)
       j += 1
     }
-    r.toSeq
+    rs.toSeq
   }
 }
 
