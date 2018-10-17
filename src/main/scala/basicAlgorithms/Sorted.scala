@@ -23,6 +23,49 @@ object Sorted {
     }
     w.toSeq
   }
+
+  /**
+   * Meger Sort
+   */
+  def mergeSorted(a: Seq[Int]): Seq[Int] = {
+    if (a.size <= 1) {
+      a
+    } else {
+      val (l, r) = a.splitAt(a.size / 2)
+      val rL     = mergeSorted(l)
+      val rR     = mergeSorted(r)
+      merge(rL, rL)
+    }
+  }
+
+  /**
+   * merge two sorted sequence
+   */
+  private def merge(l: Seq[Int], r: Seq[Int]): Seq[Int] = {
+    import scala.collection.mutable.ArrayBuffer
+    var i = 0
+    var j = 0
+    val r = ArrayBuffer[Int]()
+    while (i < l.size && j < r.size) {
+      if (l(i) < r(j)) {
+        r += l(i)
+        i += 1
+      } else {
+        r += r(j)
+        j += 1
+      }
+    }
+
+    while (i < l.size) {
+      r += l(i)
+      i += 1
+    }
+    while (j < r.size) {
+      r += r(j)
+      j += 1
+    }
+    r.toSeq
+  }
 }
 
 /**
