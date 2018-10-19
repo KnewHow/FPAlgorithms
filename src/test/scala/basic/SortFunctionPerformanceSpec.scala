@@ -17,6 +17,8 @@ class SortFunctionPerformanceSpec extends FlatSpec {
       Sorted.mergeSorted(r)
     }
     val sortE = System.currentTimeMillis
+    Logger.info(s"insertion-sort took->${mergeSortB - b1}")
+    Logger.info(s"merge-sort took->${sortE - mergeSortB}")
     assert(sortE - mergeSortB < mergeSortB - b1)
   }
 }

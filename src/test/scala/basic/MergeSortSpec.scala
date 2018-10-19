@@ -8,7 +8,7 @@ import prop.gen.Gen
 class MergeSortSpec extends FlatSpec {
   "test merge-sort" should "succeed" in {
     val g = Gen.listOfN(100000, Gen.choose(1, 1000))
-    val p = SortedLaw.law(g)(a => Sorted.mergeSorted(a))
+    val p = Sorted.sortedLaw(g)(a => Sorted.mergeSorted(a))
     assert(p.test())
   }
 }

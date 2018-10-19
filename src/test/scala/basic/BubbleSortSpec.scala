@@ -5,10 +5,10 @@ import fp.algorithms.common.Logger.Logger
 import fp.algorithms.basic._
 import prop.gen.Gen
 
-class InsertionSortSpec extends FlatSpec {
-  "test INSERTION-SORT" should "succeed" in {
+class BubbleSortSpec extends FlatSpec {
+  "test bubble-sort" should "success" in {
     val g = Gen.listOfN(10000, Gen.choose(1, 1000))
-    val p = Sorted.sortedLaw(g)(a => Sorted.insertionSort(a))
+    val p = Sorted.sortedLaw(g)(a => Sorted.bubbleSort(a))
     assert(p.test())
   }
 }
