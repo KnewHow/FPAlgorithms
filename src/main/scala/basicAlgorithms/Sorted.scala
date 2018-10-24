@@ -2,24 +2,24 @@ package fp.algorithms.basic
 
 import fp.algorithms.common.Logger.Logger
 import prop.gen._
-import scala.collection.mutable.ArrayBuffer
+import scala.collection.mutable.Buffer
 
 /**
  * Sorting object, we will implement INSERTION-SORTED and MERGE-SORT IN it.
  * @Author KnewHow 2018-10-19
  */
 object Sorted {
-  def insertionSort(a: Seq[Int]): Seq[Int] = {
+  def insertionSort[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     val w = a.toBuffer
     var i = 1
     while (i < w.size) {
       var tmp = w(i)
       var j   = i - 1
-      while (j >= 0 && w(j) > tmp) {
-        w.update(j + 1, w(j))
+      while (j >= 0 && f(tmp, w(j))) {
+        replace(w, j + 1, w(j))
         j -= 1
       }
-      w.update(j + 1, tmp)
+      replace(w, j + 1, tmp)
       i += 1
     }
     w.toSeq
@@ -28,16 +28,13 @@ object Sorted {
   /**
    * bubble sort
    */
-  def bubbleSort(a: Seq[Int]): Seq[Int] = {
+  def bubbleSort[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     val w = a.toBuffer
     var i = 0
     while (i < w.size - 1) {
       var j = i + 1
-      while (j > 0 && (w(j) < w(j - 1))) {
-        var tmp = w(j - 1)
-        var t2  = w(j)
-        w.update(j - 1, w(j))
-        w.update(j, tmp)
+      while (j > 0 && f(w(j), w(j - 1))) {
+        swap[A](w, j, j - 1)
         j -= 1
       }
       i += 1
@@ -48,14 +45,14 @@ object Sorted {
   /**
    * Meger Sort
    */
-  def mergeSorted(a: Seq[Int]): Seq[Int] = {
+  def mergeSorted[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     if (a.size <= 1) {
       a
     } else {
       val (l, r) = a.splitAt(a.size / 2)
-      val rL     = mergeSorted(l)
-      val rR     = mergeSorted(r)
-      merge(rL, rR)
+      val rL     = mergeSorted(l)(f)
+      val rR     = mergeSorted(r)(f)
+      merge(rL, rR)(f)
     }
   }
 
@@ -64,23 +61,36 @@ object Sorted {
    * but in order to make more effective, we use it
    *
    */
-  private def swap[A](a: ArrayBuffer[A], i: Int, j: Int): ArrayBuffer[A] = {
+  private def swap[A](a: Buffer[A], i: Int, j: Int): Buffer[A] = {
     var t = a(i)
-    a.update(i, a(j))
-    a.update(j, t)
+    replace(a, i, a(j))
+    replace(a, j, t)
+    a
+  }
+
+  /**
+   * replace a element with another element
+   * @param a The Buffer we will replace element in it
+   * @param index The index of element will be replaced
+   * @param element The new element will be put in the index
+   * @Author KnewHow
+   * @Create 2018-10-24
+   */
+  private def replace[A](a: Buffer[A], index: Int, element: A): Buffer[A] = {
+    a.update(index, element)
     a
   }
 
   /**
    * merge two sorted sequence
    */
-  private def merge(l: Seq[Int], r: Seq[Int]): Seq[Int] = {
+  private def merge[A](l: Seq[A], r: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     import scala.collection.mutable.ArrayBuffer
     var i  = 0
     var j  = 0
-    val rs = ArrayBuffer[Int]()
+    val rs = ArrayBuffer[A]()
     while (i < l.size && j < r.size) {
-      if (l(i) < r(j)) {
+      if (f(l(i), r(j))) {
         rs += l(i)
         i += 1
       } else {
@@ -103,27 +113,30 @@ object Sorted {
   /**
    * Whether the sequence is sorted
    */
-  def sortedLaw(input: Gen[List[Int]])(sortF: Seq[Int] => Seq[Int]): Prop = {
-    ascLaw(input)(sortF) || descLaw(input)(sortF)
+  def sortedLaw[A](input: Gen[List[A]])(sortF: Seq[A] => Seq[A])(
+    f: (A, A) => Boolean): Prop =
+    Prop.forAll(input) { a =>
+      val sorted = sortF(a)
+      elementEquals(a, sorted.toList) && isSorted(sorted.toList)(f)
+    }
+
+  /**
+   * Whether sorted List contains all elements in original List.
+   * Testing this will make lower effective,but it is necessary!
+   */
+  private def elementEquals[A](original: List[A], sorted: List[A]): Boolean = {
+    (original.size == sorted.size) && original.forall(sorted.contains)
   }
 
-  /**
-   * Whether the sequence sorted by asc
-   */
-  def ascLaw(input: Gen[List[Int]])(sortF: Seq[Int] => Seq[Int]): Prop =
-    Prop.forAll(input) { a =>
-      val r    = sortF(a)
-      val head = r.headOption
-      head.map(h => !r.exists(_ < h)).getOrElse(true) && r.size == a.size
+  private def isSorted[A](sorted: List[A])(f: (A, A) => Boolean): Boolean = {
+    var i = 0
+    while (i < sorted.size - 1) {
+      if (!f(sorted(i), sorted(i + 1))) {
+        return false
+      }
+      i += 1
     }
+    true
+  }
 
-  /**
-   * Whether the sequence sorted by desc
-   */
-  def descLaw(input: Gen[List[Int]])(sortF: Seq[Int] => Seq[Int]): Prop =
-    Prop.forAll(input) { a =>
-      val r    = sortF(a)
-      val head = r.headOption
-      head.map(h => !r.exists(_ > h)).getOrElse(true) && r.size == a.size
-    }
 }

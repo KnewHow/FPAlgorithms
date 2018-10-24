@@ -7,8 +7,10 @@ import prop.gen.Gen
 
 class BubbleSortSpec extends FlatSpec {
   "test bubble-sort" should "success" in {
-    val g = Gen.listOfN(10000, Gen.choose(1, 1000))
-    val p = Sorted.sortedLaw(g)(a => Sorted.bubbleSort(a))
+    val g = Gen.listOfN(1000, Gen.choose(1, 1000))
+    val p =
+      Sorted.sortedLaw(g)(a => Sorted.bubbleSort(a)((a, b) => a < b))((a, b) =>
+        a <= b)
     assert(p.test())
   }
 }

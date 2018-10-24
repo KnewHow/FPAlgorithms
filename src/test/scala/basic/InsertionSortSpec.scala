@@ -7,8 +7,9 @@ import prop.gen.Gen
 
 class InsertionSortSpec extends FlatSpec {
   "test INSERTION-SORT" should "succeed" in {
-    val g = Gen.listOfN(10000, Gen.choose(1, 1000))
-    val p = Sorted.sortedLaw(g)(a => Sorted.insertionSort(a))
+    val g = Gen.listOfN(1000, Gen.choose(1, 1000))
+    val p = Sorted.sortedLaw(g)(a => Sorted.insertionSort(a)((a, b) => a > b))(
+      (a, b) => a >= b)
     assert(p.test())
   }
 }
