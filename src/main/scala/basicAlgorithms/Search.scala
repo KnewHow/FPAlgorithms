@@ -1,28 +1,56 @@
 package fp.algorithms.basic
 
 import fp.algorithms.common.Logger.Logger
+import prop.gen._
+import scala.collection.mutable.Buffer
 
 /**
- * A Search tool
+ * Search tool
  * @Author KnewHow
  * @Date 2018-10-25
  */
 object Search {
+
   /**
    * BINARY-SEARCH
-   * @param s A sorted sequence
-   * @param a The element will be searched in the sequence
-   * @return Return the index if the element is in the sequence, otherwise  return -1
-   * @Author KnewHow
-   * @Date 2018-10-25
+   * @param a A sorted sequence
+   * @param element The element will be search in sequence
+   * @param f Whether first element less than second element
+   * @return The index of the element in this sequence if find it, otherwise return -1.
    */
-  def binarySearch[A](s: Seq[A],a: A):Int = {
-    s.size match {
-      case 0 => -1
-      case 1 =>
-        if(a(0) == a) 0 else -1
-      case l =>
-
+  def binaySearch[A](a: Seq[A], element: A)(f: (A, A) => Boolean): Int = {
+    def binaySearchImpl[A](
+      a: Seq[A],
+      element: A,
+      beginIndex: Int,
+      endIndex: Int)(f: (A, A) => Boolean): Int = {
+      if (endIndex - beginIndex < 1) {
+        -1
+      } else {
+        val mid  = (beginIndex + endIndex) / 2
+        val midV = a(mid)
+        if (midV == element) {
+          mid
+        } else if (f(midV, element)) {
+          binaySearchImpl(a, element, mid + 1, endIndex)(f)
+        } else {
+          binaySearchImpl(a, element, beginIndex, mid)(f)
+        }
+      }
     }
+
+    binaySearchImpl(a, element, 0, a.size)(f)
   }
+
+  def lineSearch[A](a: Seq[A], element: A): Int = {
+    var i = 0
+    while (i < a.size) {
+      if (a(i) == element) {
+        return i
+      }
+      i += 1
+    }
+    -1
+  }
+
 }

@@ -117,15 +117,23 @@ object Sorted {
     f: (A, A) => Boolean): Prop =
     Prop.forAll(input) { a =>
       val sorted = sortF(a)
-      elementEquals(a, sorted.toList) && isSorted(sorted.toList)(f)
+      elementEquals(a, sorted.toList)(f) && isSorted(sorted.toList)(f)
     }
 
   /**
    * Whether sorted List contains all elements in original List.
-   * Testing this will make lower effective,but it is necessary!
+   * In this, `sorted` is sorted sequence,
+   * so use binary search to make more effective.
+   *
+   * @param f Whether first element less than second element
    */
-  private def elementEquals[A](original: List[A], sorted: List[A]): Boolean = {
-    (original.size == sorted.size) && original.forall(sorted.contains)
+  private def elementEquals[A](original: List[A], sorted: List[A])(
+    f: (A, A) => Boolean): Boolean = {
+    (original.size == sorted.size) && original.forall { r =>
+      // Search.binaySearch(sorted, r)(f) != -1
+      // it is more effective than binary search
+      sorted.contains(r)
+    }
   }
 
   private def isSorted[A](sorted: List[A])(f: (A, A) => Boolean): Boolean = {
