@@ -9,6 +9,11 @@ import scala.collection.mutable.Buffer
  * @Author KnewHow 2018-10-19
  */
 object Sorted {
+
+  /**
+   * @param a A sequcen will be sorted
+   * @param f Whether first parameter is less than second parameter, ture is yes, otherwise is no
+   */
   def insertionSort[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     val w = a.toBuffer
     var i = 1
