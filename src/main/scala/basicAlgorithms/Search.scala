@@ -18,8 +18,9 @@ object Search {
    * @param f Whether first element less than second element
    * @return The index of the element in this sequence if find it, otherwise return -1.
    */
-  def binaySearch[A](a: Seq[A], element: A)(f: (A, A) => Boolean): Int = {
-    def binaySearchImpl[A](
+  def binarySearchRecursive[A](a: Seq[A], element: A)(
+    f: (A, A) => Boolean): Int = {
+    def binarySearchImpl[A](
       a: Seq[A],
       element: A,
       beginIndex: Int,
@@ -32,14 +33,30 @@ object Search {
         if (midV == element) {
           mid
         } else if (f(midV, element)) {
-          binaySearchImpl(a, element, mid + 1, endIndex)(f)
+          binarySearchImpl(a, element, mid + 1, endIndex)(f)
         } else {
-          binaySearchImpl(a, element, beginIndex, mid)(f)
+          binarySearchImpl(a, element, beginIndex, mid)(f)
         }
       }
     }
+    binarySearchImpl(a, element, 0, a.size)(f)
+  }
 
-    binaySearchImpl(a, element, 0, a.size)(f)
+  def binarySearch[A](a: Seq[A], element: A)(lt: (A, A) => Boolean): Int = {
+    var b = 0
+    var e = a.size
+    while (b < e) {
+      val mid  = (b + e) / 2
+      val midV = a(mid)
+      if (midV == element) {
+        return mid
+      } else if (lt(midV, element)) {
+        b = mid + 1
+      } else {
+        e = mid
+      }
+    }
+    -1
   }
 
   def lineSearch[A](a: Seq[A], element: A): Int = {

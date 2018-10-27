@@ -11,7 +11,7 @@ class BinarySearchSpec extends FlatSpec {
     val p = Prop.forAll(g) { s =>
       val element = s.head
       val sortedS = Sorted.mergeSorted(s)((a, b) => a < b)
-      val index   = Search.binaySearch(sortedS, element)((a, b) => a < b)
+      val index   = Search.binarySearch(sortedS, element)((a, b) => a < b)
       index != -1 && sortedS(index) == element
     }
     assert(p.test())

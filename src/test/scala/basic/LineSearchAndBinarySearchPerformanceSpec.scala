@@ -24,7 +24,7 @@ class LineSearchAndBinarySearchPerformanceSpec extends FlatSpec {
     }
     val b2 = System.currentTimeMillis
     val r2 = testCases.forall { r =>
-      val rs = Search.binaySearch(
+      val rs = Search.binarySearchRecursive(
         Sorted.mergeSorted(r._1)(_ < _),
         r._2
       )(_ < _)

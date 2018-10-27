@@ -34,19 +34,16 @@ object Sorted {
    * bubble sort
    */
   def bubbleSort[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
-    val w       = a.toBuffer
-    var counter = 0
-    var i       = 0
+    val w = a.toBuffer
+    var i = 0
     while (i < w.size - 1) {
       var j = i + 1
       while (j > 0 && f(w(j), w(j - 1))) {
         swap[A](w, j, j - 1)
-        counter += 1
         j -= 1
       }
       i += 1
     }
-    Logger.info(s"[Sorted-bubbleSort] loop times->${counter}")
     w.toSeq
   }
 
@@ -124,14 +121,8 @@ object Sorted {
   def sortedLaw[A](input: Gen[List[A]])(sortF: Seq[A] => Seq[A])(
     f: (A, A) => Boolean): Prop =
     Prop.forAll(input) { a =>
-      val b      = System.currentTimeMillis
       val sorted = sortF(a)
-      val e      = System.currentTimeMillis
-      Logger.info(s"[Sorted sortedLaw]sort took ${e - b}")
-      val r  = elementEquals(a, sorted.toList)(f) && isSorted[A](sorted)(f)
-      val e2 = System.currentTimeMillis
-      Logger.info(s"[Sorted sortedLaw] judge took ${e2 - e}")
-      r
+      elementEquals(a, sorted.toList)(f) && isSorted[A](sorted)(f)
     }
 
   /**
@@ -143,15 +134,11 @@ object Sorted {
    */
   private def elementEquals[A](original: List[A], sorted: List[A])(
     f: (A, A) => Boolean): Boolean = {
-    val b = System.currentTimeMillis
-    val r = original.forall { r =>
-      // Search.binaySearch(sorted, r)(f) != -1
+    original.size == sorted.size && original.forall { r =>
+      // Search.binarySearch(sorted, r)(f) != -1
       // it is more effective than binary search
       sorted.contains(r)
     }
-    val e = System.currentTimeMillis
-    Logger.info(s"[Sorted elementEquals] took -> ${e - b}")
-    r
   }
 
   private def isSorted[A](sorted: Seq[A])(f: (A, A) => Boolean): Boolean = {

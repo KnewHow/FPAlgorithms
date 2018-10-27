@@ -11,7 +11,7 @@ class BubbleSortWorstSpec extends FlatSpec {
       .run(Gen.listOfN(1000, Gen.choose(0, 100000)))
       .take(10)
       .toList
-  // .map(r => r.sortWith(_ > _))
+      .map(r => r.sortWith(_ > _))
 
   "test bubble sort worst situation" should "succceed" in {
     descList.map { r =>
