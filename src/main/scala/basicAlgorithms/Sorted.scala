@@ -48,6 +48,39 @@ object Sorted {
   }
 
   /**
+   * SELECTIN-SORT
+   * First, we need find the smallest elemetn in whole sequence then swap it with a[0]
+   * Second, we need find the second smallest element in a[1] to a[n-1], then swap it with a[2]
+   * ...
+   * Last, we need to find n-1 smallest element in a[n-2] to a[n-1]
+   * @param a A sequence will be sorted
+   * @param lt Afunction represnt first element is less than second elemet, if yes, its result is true, otherwise is false
+   * @return A sequence has been sorted
+   * @Author KnewHow
+   * @Date 2018-10-27
+   */
+  def selectionSorted[A](a: Seq[A])(lt: (A, A) => Boolean): Seq[A] = {
+    val buffer = a.toBuffer
+    var i      = 0
+    var j      = 0
+    while (i < buffer.size - 1) {
+      j = i + 1
+      // The minimal element in head in left sequence at first
+      var minimalIndex = i
+      while (j < buffer.size) {
+        if (lt(buffer(j), buffer(minimalIndex))) {
+          minimalIndex = j
+        }
+        j += 1
+      }
+      swap(buffer, i, minimalIndex)
+      i += 1
+    }
+    // Logger.info(s"[Sorted-selectionSort]loop times>${i * j}")
+    buffer.toSeq
+  }
+
+  /**
    * Meger Sort
    */
   def mergeSorted[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
