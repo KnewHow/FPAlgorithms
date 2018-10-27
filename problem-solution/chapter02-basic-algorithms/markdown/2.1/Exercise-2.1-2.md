@@ -1,8 +1,8 @@
-## Q
+## Q:
 Rewrite the INSERTION-SORT procedure to sort into nonincreasing instead of non-
 decreasing order.
 
-## A
+## A:
 In this case, we implement a common INSERT-SORT, the code is following:
 ```Scala
  /**
