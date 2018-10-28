@@ -120,7 +120,7 @@ object Sorted {
   }
 
   /**
-   * merge two sorted sequence
+   * merge two sorted sequence into a sequence
    */
   private def merge[A](l: Seq[A], r: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     import scala.collection.mutable.ArrayBuffer
