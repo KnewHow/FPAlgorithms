@@ -72,15 +72,19 @@ object Sorted {
   }
 
   /**
-   * bubble sort
+   * It is a little, each time starting from last element then
+   * find the nth smallest from `i` to `a.size -1`, So in anywhere
+   *  it will take O(n^2)
    */
   def bubbleSort[A](a: Seq[A])(f: (A, A) => Boolean): Seq[A] = {
     val w = a.toBuffer
     var i = 0
     while (i < w.size - 1) {
-      var j = i + 1
-      while (j > 0 && f(w(j), w(j - 1))) {
-        swap[A](w, j, j - 1)
+      var j = w.size - 1
+      while (j > i) {
+        if (f(w(j), w(j - 1))) {
+          swap[A](w, j, j - 1)
+        }
         j -= 1
       }
       i += 1
