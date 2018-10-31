@@ -1,5 +1,5 @@
 
-## Q:
+## Q
 ![](https://raw.githubusercontent.com/KnewHow/FPAlgorithms/master/problem-solution/chapter02-basic-algorithms/img/2.3-3-question.png)
 
 ## A:

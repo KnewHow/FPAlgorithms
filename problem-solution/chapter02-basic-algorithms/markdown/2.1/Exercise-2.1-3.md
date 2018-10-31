@@ -1,4 +1,4 @@
-## Q:
+## Q
 Consider the searching problem: Input: A sequence of n numbers `A = (a1, a2 ... an)` and a value `v`
 Output: An index i such that `a[i] == v` or the special value NIL if `v`  does not appear in `A`.
 Write pseudocode for linear search, which scans through the sequence, looking

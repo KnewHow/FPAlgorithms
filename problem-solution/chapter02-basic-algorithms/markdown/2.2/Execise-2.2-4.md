@@ -1,4 +1,4 @@
-## Q:
+## Q
 How can we modify almost any algorithm to have a good best-case running time?
 ## A:
 For a good best-case running time, modify an algorithm to first randomly
