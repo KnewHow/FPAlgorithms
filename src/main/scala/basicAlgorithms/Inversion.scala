@@ -1,18 +1,11 @@
-## Inversions
+package fp.algorithms.basic
 
-## A
- *  a
- (2, 1), (3, 1), (8, 1), (6, 1),(8, 6)
+import fp.algorithms.common.Logger.Logger
+import prop.gen._
+import scala.collection.mutable.Buffer
 
- *  b
- The sequence is <n,n-1 ... 2, 1> has most inversions, it has s = `n-1 + n-2 + ... + 1 + 0` = n(n-1)/2
-
- *  c
-![](https://raw.githubusercontent.com/KnewHow/FPAlgorithms/master/problem-solution/chapter02-basic-algorithms/img/p-2-4.png)
-
-*
-```Scala
-def impl[A](a: Seq[A])(lt: (A, A) => Boolean): Int = {
+object Inversion {
+  def impl[A](a: Seq[A])(lt: (A, A) => Boolean): Int = {
     def sortAndFind(s: Seq[A]): (Int, Seq[A]) = {
       if (s.size <= 1) {
         0 -> s
@@ -64,5 +57,19 @@ def impl[A](a: Seq[A])(lt: (A, A) => Boolean): Int = {
       j += 1
     }
     counter -> buffer.toSeq
+  }
+
+  def law: Prop = {
+    val g = Gen
+      .listOfN(Gen.choose(100, 1000), Gen.choose(0, 100000))
+      .map(r => r.distinct)
+    Prop.forAll(g) { s =>
+      val r1 = impl(s)(_ < _)
+      val r2 = s.map { r =>
+        val index = s.indexOf(r)
+        s.slice(index + 1, s.size).filter(_ < r).size
+      }.sum
+      r1 == r2
+    }
+  }
 }
-```
