@@ -5,7 +5,7 @@ Write pseudocode for linear search, which scans through the sequence, looking
 for `v`. Using a loop invariant, prove that your algorithm is correct. Make sure that
 your loop invariant fulfills the three necessary properties.
 
-## A:
+## A
 The code of Scala, you can refer following:
 ```Scala
  def lineSearch[A](a: Seq[A], element: A): Int = {

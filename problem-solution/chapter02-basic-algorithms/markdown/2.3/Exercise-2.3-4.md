@@ -1,7 +1,7 @@
 
 ## Q
 We can express insertion sort as a recursive procedure as follows. In order to sort `A[1 ... n]`, we recursively sort `A[1 ... n-1]` and then insert A[n] into the sorted array `A[1 ... n-1]`. Write a recurrence for the running time of this recursive version of insertion sort.
-## A:
+## A
 ```Scala
 /**
 * implement INSERTION-SORT by recursive. If we need sort n element, we can sort n-1 at first, then

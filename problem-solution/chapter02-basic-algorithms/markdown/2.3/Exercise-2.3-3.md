@@ -2,7 +2,7 @@
 ## Q
 ![](https://raw.githubusercontent.com/KnewHow/FPAlgorithms/master/problem-solution/chapter02-basic-algorithms/img/2.3-3-question.png)
 
-## A:
+## A
 
 * when `n = 2`,
   `T(2) = 2 * lg(2) = 2`   => Rigth!

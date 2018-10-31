@@ -1,11 +1,11 @@
-## Q:
+## Q
 Consider linear search again (see Exercise 2.1-3). How many elements of the in-
 put sequence need to be checked on the average, assuming that the element being
 searched for is equally likely to be any element in the array? How about in the
 worst case? What are the average-case and worst-case running times of linear
 search in O(n)-notation? Justify your answers.
 
-## A:
+## A
 
 We suppose the element which is searched is contained in the sequenced probability is `p`.
 So the element is not in the sequence probability is `1-p`, the seach steps is `(1-p) * n`
