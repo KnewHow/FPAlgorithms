@@ -1,2 +1,7 @@
 \because n! = \sqrt{2\pi n}\left ( \frac{n}{e} \right )^{n}e^{\alpha _{n}} \\
 \therefore lg(n!) = nlg\left (\sqrt{2\pi n} \cdot \frac{n}{e} \cdot e^{\alpha_{n}}  \right) = nlg\left ( \Theta \left ( n \right ) \right ) = \Theta (nlgn)
+
+
+\\
+h(n) = \frac{n^{n}}{n!} = \frac{n^n}{\sqrt{2\pi n}\left ( \frac{n}{e} \right)^{n}e^{\alpha _{n}} } = \frac{1}{\sqrt{2\pi n}\left ( \frac{1}{e} \right )^{n}e^{\alpha _{n}}} = e^{n} \\
+\lim_{n \to \infty }h(n) = \infty 
