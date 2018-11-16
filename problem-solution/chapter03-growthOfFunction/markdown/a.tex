@@ -7,4 +7,10 @@
 
 \\
 h(n) = \frac{n^{n}}{n!} = \frac{n^n}{\sqrt{2\pi n}\left ( \frac{n}{e} \right)^{n}e^{\alpha _{n}} } = \frac{1}{\sqrt{2\pi n}\left ( \frac{1}{e} \right )^{n}e^{\alpha _{n}}} = e^{n} \\
-\lim_{n \to \infty }h(n) = \infty 
+\lim_{n \to \infty }h(n) = \infty
+
+* 3.2-4-1
+\\
+h(n) = \left \lceil lgn \right \rceil \\
+h(n)! = \sqrt{2\pi n}\left ( \frac{n}{e} \right )^{n}e^{\alpha _{n}} \geq \sqrt{2\pi lgn}\left ( \frac{lgn}{e} \right )^{n}e^{\alpha_{n}} = \Theta (\left ( lgn \right )^{n}) \\
+\frac{1}{12n+1} < \alpha _{n} < \frac{1}{12n}
