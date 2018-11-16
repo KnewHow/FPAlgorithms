@@ -14,3 +14,20 @@ h(n) = \frac{n^{n}}{n!} = \frac{n^n}{\sqrt{2\pi n}\left ( \frac{n}{e} \right)^{n
 h(n) = \left \lceil lgn \right \rceil \\
 h(n)! = \sqrt{2\pi n}\left ( \frac{n}{e} \right )^{n}e^{\alpha _{n}} \geq \sqrt{2\pi lgn}\left ( \frac{lgn}{e} \right )^{n}e^{\alpha_{n}} = \Theta (\left ( lgn \right )^{n}) \\
 \frac{1}{12n+1} < \alpha _{n} < \frac{1}{12n}
+
+
+\\
+\phi = \frac{1+\sqrt{5}}{2} \\
+\hat{\phi} = \frac{1-\sqrt{5}}{2} \\
+F_{i} = \frac{\phi ^{i} - \hat{\phi}^{i}}{\sqrt{5}} \\
+F_{i} = F_{i-1} + F_{i-2}  \quad i \geq 2 \\
+
+\\
+when \quad i = 1 \quad F_{1} = \phi + \hat{\phi} = 1 \\
+when \quad i = k-1 \quad F_{k-1} = \frac{\phi ^{k-1} - \hat{\phi}^{k-1}}{\sqrt{5}} \quad F_{k-1} = F _{k-2} + F_{k-3} \\ 
+
+F_{k} = F_{k-1} + F_{k-2} = \frac{\phi ^{k-1} - \hat{\phi}^{k-1}}{\sqrt{5}} + \frac{\phi ^{k-2} - \hat{\phi}^{k-2}}{\sqrt{5}} = \frac{\phi ^{k-2}\left (\phi+1  \right ) - \hat{\phi}^{k-2}( \hat{\phi}+1)}{\sqrt{5}} \\
+
+In 3.2-6, we know \quad \phi + 1 = \phi ^{2} \quad \hat{\phi} + 1 = \hat{\phi}^{2} \\
+
+So 
