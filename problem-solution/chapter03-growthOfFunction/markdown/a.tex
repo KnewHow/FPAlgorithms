@@ -30,4 +30,17 @@ F_{k} = F_{k-1} + F_{k-2} = \frac{\phi ^{k-1} - \hat{\phi}^{k-1}}{\sqrt{5}} + \f
 
 In 3.2-6, we know \quad \phi + 1 = \phi ^{2} \quad \hat{\phi} + 1 = \hat{\phi}^{2} \\
 
-So 
+So
+
+##3.2-8
+\\
+\because klnk = \Theta (n) \quad \therefore  c_{1}n \leq  klnk \leq c_{2}n \\
+lnc_{1} + lnn = ln(c_{1}n) \leq ln(klnk) = lnk + lnlnk \quad \therefore lnk = O(lnk) \\
+\therefore lnn \leq c_{3}lnk \quad \\
+\therefore \frac{n}{lnn} \geq \frac{n}{c_{3}lnk} \geq \frac{k}{c_{2}c_{3}} \\\\
+\therefore \frac{n}{lnn} = \Omega(k)\\\\
+Similar \quad lnc_{2} + lnn = ln(c_{2}n) \geq = ln(klnk) \quad \therefore lnn = \Omega(lnk) \\
+\therefore lnn \geq c_{4}lnk \\
+\therefore \frac{n}{lnn} \leq \frac{n}{c_{4}lnk} \leq \frac{k}{c_{1}c_{4}}\\
+\therefore \frac{k}{c_{2}c_{3}} \leq \frac{n}{lnn} \leq \frac{k}{c_{1}c_{4}} \\
+\therefore k = \Theta (\frac{n}{lnn})
