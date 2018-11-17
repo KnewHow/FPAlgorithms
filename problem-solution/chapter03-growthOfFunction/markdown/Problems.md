@@ -27,6 +27,10 @@
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/chapter03-growthOfFunction/img/p-3-3-q.png?raw=true)
 
 *  A
+
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/chapter03-growthOfFunction/img/p-3-3-a-1.png?raw=true)
 
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/chapter03-growthOfFunction/img/p-3-3-a-2.png?raw=true)
+
+
+Some solution refer:http://sites.math.rutgers.edu/~ajl213/CLRS/Ch3.pdf
