@@ -1,6 +1,7 @@
 package fp.algorithms.divideAndConquer
 
 import fp.algorithms.common.Logger.Logger
+import prop.gen.{Prop, Gen}
 
 object MaxSubSequence {
   type From   = Int
@@ -10,7 +11,9 @@ object MaxSubSequence {
     maxSubSequence(0, a.size, a)
 
   def maxSubSequence(f: From, t: To, a: IndexedSeq[Int]): (From, To, MaxSum) = {
-    if (t - f == 1) {
+    if (a.isEmpty) {
+      (-1, 0, 0)
+    } else if (t - f == 1) {
       (f, t, a(f))
     } else {
       val mid = (f + t) / 2
@@ -68,12 +71,17 @@ object MaxSubSequence {
   }
 
   def maxSubSequenceWithBruteFroce(a: IndexedSeq[Int]): (From, To, MaxSum) = {
-    var maxSum = (0, 0, Int.MinValue)
-    for (i <- 1 to a.size) {
-      val r = getMaxSubSequenceSumByLength(a, i)
-      if (r._3 > maxSum._3) maxSum = r
+    if (a.isEmpty) {
+      (-1, 0, 0)
+    } else {
+      var maxSum = (0, 0, Int.MinValue)
+      for (i <- 1 to a.size) {
+        val r = getMaxSubSequenceSumByLength(a, i)
+        if (r._3 > maxSum._3) maxSum = r
+      }
+      maxSum
     }
-    maxSum
+
   }
 
   private def getMaxSubSequenceSumByLength(
@@ -94,5 +102,9 @@ object MaxSubSequence {
       i += 1
     }
     (f, t, maxSum)
+  }
+
+  def law(gen: Gen[List[Int]]): Prop = Prop.forAll(gen) { g =>
+    maxSubSequence(g.toIndexedSeq)._3 == maxSubSequence(g.toIndexedSeq)._3
   }
 }
