@@ -26,7 +26,7 @@ class MaxSubSequenceSpec extends FlatSpec {
   }
 
   "test maxSubSequence with random list" should "succeed" in {
-    val g = Gen.listOfN(1000, Gen.choose(-100000, 100000))
+    val g = Gen.listOfN(100, Gen.choose(-100000, 100000))
     val r = MaxSubSequence.law(g)
     assert(r.test())
   }
@@ -35,5 +35,11 @@ class MaxSubSequenceSpec extends FlatSpec {
     val a = List.empty.toIndexedSeq
     val r = MaxSubSequence.maxSubSequence(a)
     assert(r._3 == 0)
+  }
+
+  "test maxSubSequence with line-time" should "succeed" in {
+    val g = Gen.listOfN(1000, Gen.choose(-100000, 100000))
+    val r = MaxSubSequence.lineMaxSubSequenceLaw(g)
+    assert(r.test())
   }
 }

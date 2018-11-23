@@ -105,6 +105,34 @@ object MaxSubSequence {
   }
 
   def law(gen: Gen[List[Int]]): Prop = Prop.forAll(gen) { g =>
-    maxSubSequence(g.toIndexedSeq)._3 == maxSubSequence(g.toIndexedSeq)._3
+    maxSubSequence(g.toIndexedSeq)._3 == maxSubSequenceWithBruteFroce(
+      g.toIndexedSeq)._3
   }
+
+  def lineMaxSubSequence(a: IndexedSeq[Int]): (From, To, MaxSum) = {
+    var maxSum = Int.MinValue
+    var sum    = 0
+    var from   = -1
+    var to     = -1
+    var j      = 0
+    for (i <- 0 until a.size) {
+      sum += a(i)
+      if (sum > maxSum) {
+        maxSum = sum
+        from = j
+        to = i + 1
+      }
+
+      if (sum < 0) {
+        sum = 0
+        j = i + 1
+      }
+    }
+    (from, to, maxSum)
+  }
+
+  def lineMaxSubSequenceLaw(gen: Gen[List[Int]]): Prop = Prop.forAll(gen) { g =>
+    maxSubSequence(g.toIndexedSeq)._3 == lineMaxSubSequence(g.toIndexedSeq)._3
+  }
+
 }
