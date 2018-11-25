@@ -14,7 +14,7 @@ Show that if A and B are symmetric `n x n` matrices, then so are `A + B` and `A 
 
 *  Q
 
-Prove that![](http://latex.codecogs.com/gif.latex?\(AB\)^T = B^TA^T) and that ![](http://latex.codecogs.com/gif.latex?A^TA) is always a symmetric matrix.
+Prove that![](http://latex.codecogs.com/gif.latex?\(AB\)^T=B^TA^T) and that ![](http://latex.codecogs.com/gif.latex?A^TA) is always a symmetric matrix.
 
 *  A
 
