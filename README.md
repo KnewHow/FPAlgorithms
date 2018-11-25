@@ -28,3 +28,7 @@ We will try solve all problems in CLRS with functional way. If you has interesti
 *  [Repo](https://github.com/KnewHow/FPAlgorithms/tree/master/src/main/scala/divideAndConquer)
 
 *  [TestCase](https://github.com/KnewHow/FPAlgorithms/tree/master/src/test/scala/DivideAndConquer)
+
+## D Matrices
+
+*  [Solution](https://github.com/KnewHow/FPAlgorithms/tree/master/problem-solution/D-matrices/markdown)
