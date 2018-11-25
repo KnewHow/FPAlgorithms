@@ -1,0 +1,33 @@
+\\
+let \quad A_{m \times n} = \begin{bmatrix}
+ a_{11}&   a_{12} & ... & a_{1n}\\
+ a_{21}&   a_{22} & ... & a_{2n}\\
+ ... & ... & ... & ... \\
+ a_{m1}&   a_{m2} & ... & a_{mn}
+\end{bmatrix}
+\\
+\\\\
+let \quad B_{n \times p} = \begin{bmatrix}
+ b_{11}&   b_{12} & ... & b_{1n}\\
+ b_{21}&   b_{22} & ... & b_{2n}\\
+ ... & ... & ... & ... \\
+ b_{n1}&   b_{n2} & ... & b_{np}
+\end{bmatrix}
+\\
+\\\\
+\\
+\therefore\quad C_{m \times p} = A \times B = \begin{bmatrix}
+ \sum_{d=1}^{n}a_{1d}b_{d1} & \sum_{d=1}^{n}a_{1d}b_{d2} & ... & \sum_{d=1}^{n}a_{1d}b_{dn}\\ \\
+ \sum_{d=1}^{n}a_{2d}b_{d1} & \sum_{d=1}^{n}a_{2d}b_{d2} & ... & \sum_{d=1}^{n}a_{2d}b_{dn}\\  \\
+ ... & ... & ... & ... \\
+ \sum_{d=1}^{n}a_{md}b_{d1} & \sum_{d=1}^{n}a_{md}b_{d2} & ... & \sum_{d=1}^{n}a_{md}b_{dn}\\
+\end{bmatrix}
+\\
+\\\\
+\therefore \quad C^T_{p \times m} = \begin{bmatrix}
+ \sum_{d=1}^{n}a_{1d}b_{d1}& \sum_{d=1}^{n}a_{2d}b_{d1} & ... &\sum_{d=1}^{n}a_{md}b_{d1}  \\\\
+ \sum_{d=1}^{n}a_{1d}b_{d2} & \sum_{d=1}^{n}a_{2d}b_{d2} & ... &\sum_{d=1}^{n}a_{md}b_{d2} \\
+ ...& ... & ... & ...\\
+ \sum_{d=1}^{n}a_{1d}b_{dn} & \sum_{d=1}^{n}a_{2d}b_{dn} & ... & \sum_{d=1}^{n}a_{md}b_{dn}
+\end{bmatrix}
+\\
