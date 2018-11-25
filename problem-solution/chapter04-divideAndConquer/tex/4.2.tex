@@ -20,3 +20,65 @@ S_{7} = A_{12} - A_{22} = 3 - 5 = -2 \\
 S_{8} = B_{21} + B_{22} = 4 + 2 = 6 \\
 S_{9} = A_{11} - A_{21} = 1 - 7 = -6 \\
 S_{10} = B_{11} + B_{12} = 6 + 8 = 14
+
+\\
+P_{1} = A_{11} \cdot S_{1} = \begin{bmatrix}
+1
+\end{bmatrix} \times \begin{bmatrix}
+6
+\end{bmatrix} = \begin{bmatrix}
+6
+\end{bmatrix} \\\\
+P_{2} = S_{2} \cdot B_{22} = \begin{bmatrix}
+4
+\end{bmatrix} \times \begin{bmatrix}
+2
+\end{bmatrix} = \begin{bmatrix}
+8
+\end{bmatrix} \\\\
+P_{3} = S_{3} \cdot B_{11} = \begin{bmatrix}
+12
+\end{bmatrix} \times \begin{bmatrix}
+6
+\end{bmatrix} = \begin{bmatrix}
+72
+\end{bmatrix} \\\\
+P_{4} = A_{22} \cdot S_{4} = \begin{bmatrix}
+5
+\end{bmatrix} \times \begin{bmatrix}
+-2
+\end{bmatrix} = \begin{bmatrix}
+-10
+\end{bmatrix} \\\\
+P_{5} = S_5 \cdot S_6 = \begin{bmatrix}
+6
+\end{bmatrix} \times \begin{bmatrix}
+8
+\end{bmatrix} = \begin{bmatrix}
+48
+\end{bmatrix} \\\\
+
+P_{6} = S_{7} \cdot S_{8} = \begin{bmatrix}
+-2
+\end{bmatrix} \times \begin{bmatrix}
+6
+\end{bmatrix} = \begin{bmatrix}
+-12
+\end{bmatrix} \\\\
+P_{7} = S_{9} \cdot S_{10} = \begin{bmatrix}
+-6
+\end{bmatrix} \times \begin{bmatrix}
+14
+\end{bmatrix} = \begin{bmatrix}
+-84
+\end{bmatrix} \\
+
+\\
+C_{11} = P_{5} + P_{4} - P_{2} + P_{6} = \begin{bmatrix}48\end{bmatrix} - \begin{bmatrix}48\end{bmatrix} - \begin{bmatrix}8\end{bmatrix} - \begin{bmatrix}12\end{bmatrix} = \begin{bmatrix}18\end{bmatrix} \\\\
+C_{12} = P_{1} + P_{2} = \begin{bmatrix}6\end{bmatrix} + \begin{bmatrix}8\end{bmatrix} = \begin{bmatrix}14\end{bmatrix} \\\\
+C_{21} = P_{3} + P_{4} = \begin{bmatrix}72\end{bmatrix} + \begin{bmatrix}-10\end{bmatrix} = \begin{bmatrix}62\end{bmatrix} \\\\
+C_{22} = P_{5} + P_{1} - P_{3} + P_{7} = \begin{bmatrix}48\end{bmatrix} + \begin{bmatrix}6\end{bmatrix} - \begin{bmatrix}72\end{bmatrix} - \begin{bmatrix}-84\end{bmatrix} = \begin{bmatrix}66\end{bmatrix} \\\\
+\therefore C = \begin{bmatrix}
+18 & 14 \\
+62 & 66
+\end{bmatrix}
