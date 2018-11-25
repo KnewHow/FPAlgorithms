@@ -19,4 +19,5 @@ Prove that![](http://latex.codecogs.com/gif.latex?\(AB\)^T=B^TA^T) and that ![](
 *  A
 
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-2-a-1.gif?raw=true)
+
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-2-a-2.gif?raw=true)
