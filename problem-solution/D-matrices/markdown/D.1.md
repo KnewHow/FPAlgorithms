@@ -42,3 +42,16 @@ Prove that the product of two lower-triangular matrices is lower-triangular.
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-3-a-1.gif?raw=true)
 
 ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-3-a-2.gif?raw=true)
+
+## D.1-4
+*  Q
+
+![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-4-q.png?raw=true)
+*  A
+
+Suppose row i of P has a 1 in column j. Then row i of P A is row j of A,
+so P A permutes the rows. On the other hand, column j of AP is column i of
+A, so AP permutes the columns. We can view the product of two permutation
+matrices as one permutation matrix permuting the rows of another. This preserves
+the property that there is only a single 1 in each row and column, so the
+product is also a permutation matrix.
