@@ -28,4 +28,4 @@ Prove that![](http://latex.codecogs.com/gif.latex?\(AB\)^T=B^TA^T) and that ![](
 
   * 2
 
-  ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-2-a-3.gif?raw=true)
+  ![](https://github.com/KnewHow/FPAlgorithms/blob/master/problem-solution/D-matrices/img/D.1-2-a-4.gif?raw=true)
