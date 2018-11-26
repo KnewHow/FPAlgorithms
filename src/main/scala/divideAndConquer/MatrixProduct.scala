@@ -1,6 +1,7 @@
 package fp.algorithms.divideAndConquer
 
 import fp.algorithms.common.Logger.Logger
+import prop.gen.{Prop, Gen}
 
 object MatrixOps {
   type Matrix = Array[Array[Int]]
@@ -29,7 +30,7 @@ object MatrixOps {
       val p5  = product(s5, s6)
       val p6  = product(s7, s8)
       val p7  = product(s9, s10)
-      val c11 = plusMatrix(minusMatrix(plusMatrix(p4, p5), p2), p6)
+      val c11 = plusMatrix(minusMatrix(plusMatrix(p5, p4), p2), p6)
       val c12 = plusMatrix(p1, p2)
       val c21 = plusMatrix(p3, p4)
       val c22 = minusMatrix(minusMatrix(plusMatrix(p5, p1), p3), p7)
@@ -110,6 +111,30 @@ object MatrixOps {
 
   def toString(m: Matrix) = {
     m.deep.mkString("--^--")
+  }
+
+  def originalProduct(a: Matrix, b: Matrix): Matrix = {
+    val r = Array.ofDim[Int](a.size, a.head.size)
+    for {
+      i <- 0 until a.size
+      j <- 0 until a.head.size
+    } {
+      var sum = 0
+      for (k <- 0 until a.size) {
+        var t = a(i)(k) * b(k)(j)
+        sum = sum + t
+      }
+      r(i)(j) = sum
+    }
+    r
+  }
+
+  def law(x: Int): Prop = {
+    val g = Gen.choose(1, 100)
+    Prop.forAll(g) { a =>
+      val n = scala.math.pow(2, x).toInt
+      true
+    }
   }
 
   // implicit def toMatrix(m: Array[Array[Int]]) = MatrixOps2(m)

@@ -68,7 +68,14 @@ class MatrixSpec extends FlatSpec {
       Array(3, 3, 6, 3),
       Array(-3, 4, 4, 4))
 
-    val r = MatrixOps.product(a, b)
-    println(r.deep.mkString("\n"))
+    assert(MatrixOps.product(a, b).deep == MatrixOps.originalProduct(a, b).deep)
+  }
+
+  "test original matrixProduct" should "succeed" in {
+    val a    = Array(Array(1, 3), Array(7, 5))
+    val b    = Array(Array(6, 8), Array(4, 2))
+    val r    = MatrixOps.originalProduct(a, b)
+    val clcR = Array(Array(18, 14), Array(62, 66))
+    assert(r.deep == clcR.deep)
   }
 }
