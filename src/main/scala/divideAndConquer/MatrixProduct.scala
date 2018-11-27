@@ -12,29 +12,30 @@ object MatrixOps {
     } else {
       val (a11, a12, a21, a22) = partitionFour(a)
       val (b11, b12, b21, b22) = partitionFour(b)
-      val s1                   = minusMatrix(b12, b22)
-      val s2                   = plusMatrix(a11, a12)
-      val s3                   = plusMatrix(a21, a22)
-      val s4                   = minusMatrix(b21, b11)
-      val s5                   = plusMatrix(a11, a22)
-      val s6                   = plusMatrix(b11, b22)
-      val s7                   = minusMatrix(a12, a22)
-      val s8                   = plusMatrix(b21, b22)
-      val s9                   = minusMatrix(a11, a21)
-      val s10                  = plusMatrix(b11, b12)
 
-      val p1  = product(a11, s1)
-      val p2  = product(s2, b22)
-      val p3  = product(s3, b11)
-      val p4  = product(a22, s4)
-      val p5  = product(s5, s6)
-      val p6  = product(s7, s8)
-      val p7  = product(s9, s10)
-      val c11 = plusMatrix(minusMatrix(plusMatrix(p5, p4), p2), p6)
-      val c12 = plusMatrix(p1, p2)
-      val c21 = plusMatrix(p3, p4)
-      val c22 = minusMatrix(minusMatrix(plusMatrix(p5, p1), p3), p7)
-      Logger.info(s"p2->${toString(p4)}")
+      val s1  = b12 - b22
+      val s2  = a11 + a12
+      val s3  = a21 + a22
+      val s4  = b21 - b11
+      val s5  = a11 + a22
+      val s6  = b11 + b22
+      val s7  = a12 - a22
+      val s8  = b21 + b22
+      val s9  = a11 - a21
+      val s10 = b11 + b12
+
+      val p1 = a11 * s1
+      val p2 = s2 * b22
+      val p3 = s3 * b11
+      val p4 = a22 * s4
+      val p5 = s5 * s6
+      val p6 = s7 * s8
+      val p7 = s9 * s10
+
+      val c11 = p5 + p4 - p2 + p6
+      val c12 = p1 + p2
+      val c21 = p3 + p4
+      val c22 = p5 + p1 - p3 - p7
       combine(c11, c12, c21, c22)
     }
   }
@@ -129,17 +130,24 @@ object MatrixOps {
     r
   }
 
-  def law(x: Int): Prop = {
-    val g = Gen.choose(1, 100)
-    Prop.forAll(g) { a =>
-      val n = scala.math.pow(2, x).toInt
-      true
+  def law(a: Gen[Matrix], b: Gen[Matrix]): Prop = {
+    Prop.forAll(
+      for {
+        m <- a
+        n <- b
+      } yield (m, n)
+    ) {
+      case (m, n) =>
+        product(m, n).deep == originalProduct(m, n).deep
+
     }
   }
 
-  // implicit def toMatrix(m: Array[Array[Int]]) = MatrixOps2(m)
-  // case class MatrixOps2(val m: Array[Array[Int]]) {
-  //   def plus(n: Matrix): Matrix = plusMatrix(m, n)
-  //   def -(n: Matrix)            = minusMatrix(m, n)
-  // }
+  // use implicit, make you write `a + b` directory
+  implicit def toMatrix(m: Array[Array[Int]]): MatrixOps = MatrixOps(m)
+  case class MatrixOps(val m: Array[Array[Int]]) {
+    def +(n: Matrix): Matrix = plusMatrix(m, n)
+    def -(n: Matrix)         = minusMatrix(m, n)
+    def *(n: Matrix)         = product(m, n)
+  }
 }
