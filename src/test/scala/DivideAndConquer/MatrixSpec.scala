@@ -78,4 +78,35 @@ class MatrixSpec extends FlatSpec {
     val clcR = Array(Array(18, 14), Array(62, 66))
     assert(r.deep == clcR.deep)
   }
+
+  "test matrix product with law" should "succeed" in {
+    val m = getMatrixTuple
+    val r = MatrixOps.law(m._1, m._2)
+    assert(r.test())
+  }
+
+  def getMatrixTuple = {
+    val s = Gen
+      .run(
+        Gen
+          .choose(2, 8)
+          .map { r =>
+            scala.math.pow(2, r).toInt
+          }
+      )
+      .take(1)
+      .toList
+      .head
+    getMatrix(s) -> getMatrix(s)
+  }
+
+  def getMatrix(s: Int) = {
+    val fut = Gen.listOfN(s, Gen.choose(0, 1000)).flatMap { r =>
+      val m: List[Gen[List[Int]]] = r.map { l =>
+        Gen.listOfN(s, Gen.choose(0, 1000))
+      }
+      m.foldLeft(Gen.unit(List[List[Int]]()))((a, b) => b.map2(a)(_ :: _))
+    }
+    fut.map(m => m.map(_.toArray).toArray)
+  }
 }

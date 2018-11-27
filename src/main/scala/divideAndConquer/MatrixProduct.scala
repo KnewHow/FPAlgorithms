@@ -40,6 +40,7 @@ object MatrixOps {
     }
   }
 
+  // partition matrix into four sub-matrix
   def partitionFour(m: Matrix): (
     Matrix,
     Matrix,
@@ -68,6 +69,7 @@ object MatrixOps {
     (a, b, c, d)
   }
 
+  // combine four sub-matrix into a bigger matrix
   def combine(
     c11: Matrix,
     c12: Matrix,
@@ -114,6 +116,7 @@ object MatrixOps {
     m.deep.mkString("--^--")
   }
 
+  // force matrix product
   def originalProduct(a: Matrix, b: Matrix): Matrix = {
     val r = Array.ofDim[Int](a.size, a.head.size)
     for {
