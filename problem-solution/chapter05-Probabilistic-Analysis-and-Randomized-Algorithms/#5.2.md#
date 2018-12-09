@@ -1,0 +1,19 @@
+# 5.2
+
+## 5.2-1
+*  Q
+
+In HIRE-AxsSSISTANT, assuming that the candidates are presented in a random order, what is the probability that you hire exactly one time? What is the probability that you hire exactly n times?
+
+*  A
+If the best appear in first, so the (n-1)! / n! = (1/n), If the offlice assistant appear in order, then probability is 1/n!
+
+## 5.2-2
+
+*  Q
+
+In HIRE-ASSISTANT, assuming that the candidates are presented in a random order, what is the probability that you hire exactly twice?
+
+*  A
+
+we can think this question use anothor way, how to put the best office assistant, we can hire her in second. In fact, she can appear in any positian except in first. we suppose she can in `k` and k in `[2,n]`, the most imporant thing we need make sure the `1` to `k-1` must decreasing in order. It is nutural, you can choose `k-1` from `n`, then let them decreasing. So the question now has been covered how choose `k-1` from `n`. So `Pr{A}= ()/(n)`
