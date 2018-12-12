@@ -3,11 +3,11 @@ package fp.algorithms.probabilisticAndrandom
 import prop.gen.Gen
 import scala.math._
 import fp.algorithms.basic.Swap.swap
-
+import prop.random.{Random => PR}
 object Random {
-  def randomUnit: Int = Gen.run(Gen.choose(0, 2)).take(2).toList.head
+  def randomUnit: Int = PR.choose(0, 1)
 
-  def randomBasede: Int = Gen.run(Gen.choose(0, 2)).take(2).toList.head
+  def randomBasede: Int = PR.choose(0, 1)
 
   def random(a: Int, b: Int): Int = {
     if (a == b) {
@@ -35,7 +35,7 @@ object Random {
 
   def permuteSort(a: Seq[Int]): Seq[Int] = {
     val n       = a.size
-    val rSeq    = Gen.run(Gen.choose(1, n * n * n)).take(n).toList.toSeq
+    val rSeq    = PR.choose(1, n * n * n, n)
     val combine = rSeq.zip(a)
     combine.sortWith {
       case (f, s) => f._1 < s._1
