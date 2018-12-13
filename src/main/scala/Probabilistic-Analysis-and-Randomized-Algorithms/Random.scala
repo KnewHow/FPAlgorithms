@@ -4,6 +4,7 @@ import prop.gen.Gen
 import scala.math._
 import fp.algorithms.basic.Swap.swap
 import prop.random.{Random => PR}
+import fp.algorithms.basic.Swap
 object Random {
   def randomUnit: Int = PR.choose(0, 1)
 
@@ -42,7 +43,12 @@ object Random {
     }.map(_._2)
   }
 
-  // def randomizeInPlace(a: Seq[Int]): Seq[Int] = {
-
-  // }
+  def randomizeInPlace(a: Seq[Int]): Seq[Int] = {
+    val buffer = a.toBuffer
+    val n      = a.size
+    for (i <- 0 until n) {
+      Swap.swap(buffer, i, PR.choose(i, n - 1))
+    }
+    buffer.toList.toSeq
+  }
 }
