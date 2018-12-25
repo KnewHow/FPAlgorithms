@@ -15,10 +15,10 @@ class AbsHeapSpec extends FlatSpec {
   }
 }
 
-trait Animal[F[_]] {
-  def compare[A](a: F[A]): Int
+trait Animal[A] {
+  def compare[A](a: A): Int
 }
 
-case class Person[A](age: Int, name: String) extends Animal[Person] { self =>
-  def compare[A](p: Person[A]): Int = self.age - p.age
+case class Person(age: Int, name: String) extends Animal[Person] { self =>
+  def compare(p: Person): Int = self.age - p.age
 }

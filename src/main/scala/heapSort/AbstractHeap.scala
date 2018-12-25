@@ -9,11 +9,11 @@ case class AbsHeap[A, B](element: Seq[HeapElement[A, B]], size: Int) {
 
 case class HeapElement[A, B](weight: Weight[A], value: B)
 
-trait Weight[F[_]] {
-  def compare[A](w: Weight[F[A]]): Int
-  def modifyTo[A](w: Weight[F[A]]): Weight[F[A]]
-  def max[A]: Weight[F[A]]
-  def min[A]: Weight[F[A]]
+trait Weight[A] {
+  def compare[A](w: Weight[A]): Int
+  def modifyTo[A](w: Weight[A]): Weight[A]
+  def max: Weight[A]
+  def min: Weight[A]
 }
 
 object AbsHeap {
