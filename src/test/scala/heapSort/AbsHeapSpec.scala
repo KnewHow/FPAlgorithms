@@ -32,7 +32,7 @@ class AbsHeapSpec extends FlatSpec {
     ),
   )
 
-  val g = Gen.listOfN(Gen.choose(100, 10000), Gen.choose(1, 10000).map { age =>
+  val g = Gen.listOfN(Gen.choose(100, 1000), Gen.choose(1, 10000).map { age =>
     HeapElement(
       Age(age),
       Person(s"路飞-${age}")
