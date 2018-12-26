@@ -8,7 +8,7 @@ import org.scalatest.FlatSpec
 
 class HeapSortSpec extends FlatSpec {
   "test heap sort" should "succee" in {
-    val g = Gen.listOfN(1000, Gen.choose(1, 10000))
+    val g = Gen.listOfN(Gen.choose(100, 10000), Gen.choose(1, 10000))
     val p =
       Sorted.sortedLaw(g)(s => Heap.heapSort(s))((a, b) => a <= b)
     assert(p.test())

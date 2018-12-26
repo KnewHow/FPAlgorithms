@@ -2,6 +2,7 @@ package fp.algorithms.heapSort
 
 import fp.algorithms.basic.Swap._
 import scala.collection.mutable.ArrayBuffer
+import fp.algorithms.common.Logger.Logger
 
 case class AbsHeap[A, B](element: Seq[HeapElement[A, B]], size: Int) {
   def map[C](f: B => C): AbsHeap[A, C] = ???
@@ -10,10 +11,11 @@ case class AbsHeap[A, B](element: Seq[HeapElement[A, B]], size: Int) {
 case class HeapElement[A, B](weight: Weight[A], value: B)
 
 trait Weight[A] {
-  def compare[A](w: Weight[A]): Int
-  def modifyTo[A](w: Weight[A]): Weight[A]
-  def max: Weight[A]
-  def min: Weight[A]
+  val value: A
+  def compare(w: A): Int
+  def max: A
+  def min: A
+  def unit(a: A): Weight[A]
 }
 
 object AbsHeap {
@@ -22,13 +24,13 @@ object AbsHeap {
     var largestIndex = i
     val l            = i * 2
     val r            = i * 2 + 1
-    if (l <= heap.size && elements(l).weight.compare(elements(i).weight) > 0) {
+    if (l <= heap.size && elements(l).weight.compare(elements(i).weight.value) > 0) {
       largestIndex = l
     } else {
       largestIndex = i
     }
     if (r <= heap.size && elements(r).weight.compare(
-          elements(largestIndex).weight) > 0) {
+          elements(largestIndex).weight.value) > 0) {
       largestIndex = r
     }
     if (largestIndex != i) {
@@ -68,9 +70,9 @@ object AbsHeap {
       sys.error("heap size less than 1")
     } else {
       val buffer    = heap.element.toBuffer
-      val first     = buffer.head
+      val first     = buffer(1)
       val newBuffer = swap(buffer, 1, heap.size)
-      val tmpHeap   = AbsHeap(newBuffer.toSeq, buffer.size - 1)
+      val tmpHeap   = AbsHeap(newBuffer.toSeq, heap.size - 1)
       first -> maxHeapify(tmpHeap, 1)
     }
   }
@@ -79,7 +81,8 @@ object AbsHeap {
     heap: AbsHeap[A, B],
     element: HeapElement[A, B]): AbsHeap[A, B] = {
     val buffer = heap.element.toBuffer
-    buffer.append(HeapElement(element.weight.min, element.value))
+    buffer.append(
+      HeapElement(element.weight.unit(element.weight.min), element.value))
     var tmpHeap = AbsHeap(buffer.toSeq, heap.size + 1)
     modifyWeight(tmpHeap, tmpHeap.size, element.weight)
   }
@@ -103,7 +106,7 @@ object AbsHeap {
       val newE   = oldE.copy(weight = weight)
       buffer.update(index, newE)
       var i = index
-      while (i > 1 && buffer(i).weight.compare(buffer(i / 2).weight) > 0) {
+      while (i > 1 && buffer(i).weight.compare(buffer(i / 2).weight.value) > 0) {
         swap(buffer, i, i / 2)
         i = i / 2
       }
