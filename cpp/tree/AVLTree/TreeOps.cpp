@@ -10,52 +10,93 @@ using std :: end;
 using std :: vector;
 using std :: cerr;
 
+int getMax(int a, int b) {
+  return a > b ? a : b;
+}
+
+int getHeight(PTree root) {
+  if(root != nullptr) {
+    int lh = getHeight(root->left);
+    int rh = getHeight(root->right);
+    return (lh > rh ? lh : rh) + 1;
+  } else {
+    return 0;
+  }
+}
+
 PTree RR(PTree root) {
   PTree parent = root->right;
   // update parent left
   root->right = parent->left;
-  parent->left->parent = root;
 
   // update parent
   parent->left = root;
-  root->parent = parent;
+
+  root->height = getMax(getHeight(root->left), getHeight(root->right)) + 1;
+  parent->height = getMax(getHeight(parent->left), getHeight(parent->right)) + 1;
   return parent;
+}
+
+PTree LL(PTree root) {
+  PTree parent = root->left;
+
+  root->left = parent->right;
+
+  parent->right = root;
+  root->height = getMax(getHeight(root->left), getHeight(root->right)) + 1;
+  parent->height = getMax(getHeight(parent->left), getHeight(parent->right)) + 1;
+  return parent;
+}
+
+PTree LR(PTree root) {
+  PTree r = RR(root);
+  root->left = r;
+  return LL(root);
+}
+
+PTree RL(PTree root) {
+  PTree r = LL(root->right);
+  root -> right = r;
+  return RR(root);
 }
 
 PTree allocTree(ElementType value) {
   PTree tmp = (PTree)malloc(sizeof(Te));
-  tmp->parent = nullptr;
   tmp->left = nullptr;
   tmp->right =  nullptr;
   tmp->value = value;
+  tmp->height = 0;
   return tmp;
 }
 
-PTree insert(PTree root, ElementType value) {
+PTree insertALV(PTree root, ElementType value) {
   if(root == nullptr) {
-    return allocTree(value);
+    root = allocTree(value);
   } else {
-    PTree tmp = root;
-    PTree parent = nullptr;
-    while(tmp != nullptr) {
-      parent = tmp;
-      if(value < tmp->value) {
-        tmp = tmp->left;
-      } else {
-        tmp = tmp->right;
-
+    if(value < root->value) {
+      root->left = insertALV(root->left, value);
+      // insert node in left's left, LL
+      if(getHeight(root->left) -  getHeight(root->right) > 1) {
+        if(value < root->left->value) {
+          root = LL(root);
+        } else {
+          root = LR(root);
+        }
+      }
+    } else if(value > root->value) {
+      root->right = insertALV(root->right,value);
+      if(getHeight(root->right) -  getHeight(root->left) > 1) {
+        if(value > root->right->value) {
+          root = RR(root);
+        } else {
+          root = RL(root);
+        }
       }
     }
-    PTree leaf = allocTree(value);
-    if(value < parent->value) {
-      parent->left = leaf;
-      leaf->parent = parent;
-    } else {
-      parent->right = leaf;
-      leaf->parent =parent;
-    }
-    return root;
   }
+
+  root->height = getMax(getHeight(root->right), getHeight(root->left)) + 1;
+  return root;
 }
 
 PTree search(PTree root, ElementType value) {
@@ -83,19 +124,9 @@ void middlePrint(PTree root) {
 PTree buildTree(vector<int> v) {
   PTree root = nullptr;
   for(auto a : v) {
-    root = insert(root, a);
+    root = insertALV(root, a);
   }
   return root;
-}
-
-int getHeight(PTree root) {
-  if(root != nullptr) {
-    int lh = getHeight(root->left);
-    int rh = getHeight(root->right);
-    return (lh > rh ? lh : rh) + 1;
-  } else {
-    return 0;
-  }
 }
 
 ElementType getMax(PTree root) {
@@ -126,10 +157,49 @@ ElementType getMin(PTree root) {
   }
 }
 
+PTree getMinNode(PTree root) {
+  PTree tmp = root;
+  PTree parent = nullptr;
+  while(tmp != nullptr) {
+    parent = tmp;
+    tmp = tmp->left;
+  }
+  if(parent != nullptr) {
+    return parent;
+  }else {
+    cerr << "The tree is empty" << endl;
+  }
+}
+
+PTree deleteElement(PTree root, ElementType value) {
+  PTree tmp = nullptr;
+  if(root == nullptr) {
+    return root;
+  } else {
+    if(value < root->value) {
+      root->left =  deleteElement(root->left,value);
+    } else if (value > root->value){
+      root->right = deleteElement(root->right,value);
+    } else {
+      tmp = root;
+      if(root->left != nullptr && root->right != nullptr) {
+        tmp = getMinNode(root->right);
+        root->value = tmp->value;
+        root->right = deleteElement(root->right, tmp->value);
+      } else if(root->left == nullptr) {
+        root = root->right;
+      } else if(root -> right == nullptr) {
+        root = root->left;
+      }
+      free(tmp);
+      return root;
+    }
+  }
+}
+
 
 int main () {
-  // vector<int> v{1,6,5,2,4,3};
-  vector<int> v{4,3,2,1,5,6};
+  vector<int> v{1,2,3,4,5,6};
   PTree root =  buildTree(v);
   middlePrint(root);
   PTree r = search(root, 5);
@@ -140,5 +210,7 @@ int main () {
   cout << "tree max node is " << max << endl;
   ElementType minV = getMin(root);
   cout << "tree min node is " << minV << endl;
+  PTree r2 =  deleteElement(root, 5);
+  middlePrint(r2);
   return 0;
 }

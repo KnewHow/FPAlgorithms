@@ -5,9 +5,9 @@ using ElementType = int;
 // define a tree
 struct Tree {
   ElementType value;
+  int height;
   struct Tree *left;
   struct Tree *right;
-  struct Tree *parent;
 };
 using Te = struct Tree;
 using PTree = struct Tree *;
